@@ -22,7 +22,7 @@ export default {
     return {
       question: undefined,
       incorrectAnswers: undefined,
-      correctAnswers: undefined,
+      correctAnswer: undefined,
     }
   },
   computed: {
@@ -30,9 +30,9 @@ export default {
       // this trick prevents from modifying this.incorrectAnswers when new data are pushed in answers array
       // because there is data are binded between answers and this.incorrectAnswers
       const answers = JSON.parse(JSON.stringify(this.incorrectAnswers));
-      answers.push(this.correctAnswers);
+      const randomPosition = Math.round((Math.random() * answers.length));
       
-      return answers;
+      return answers.splice(randomPosition, 0, this.correctAnswer);
     }
   },
   created() {
@@ -43,7 +43,7 @@ export default {
         .then((response) => {
           this.question = response.data.results[0].question;
           this.incorrectAnswers = response.data.results[0].incorrect_answers;
-          this.correctAnswers = response.data.results[0].correct_answer;
+          this.correctAnswer = response.data.results[0].correct_answer;
         });
     
   }
