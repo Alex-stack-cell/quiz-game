@@ -22,7 +22,17 @@ export default {
     return {
       question: undefined,
       incorrectAnswers: undefined,
-      correctAnswers: undefined
+      correctAnswers: undefined,
+    }
+  },
+  computed: {
+    answers() {
+      // this trick prevents from modifying this.incorrectAnswers when new data are pushed in answers array
+      // because there is data are binded between answers and this.incorrectAnswers
+      const answers = JSON.parse(JSON.stringify(this.incorrectAnswers));
+      answers.push(this.correctAnswers);
+      
+      return answers;
     }
   },
   created() {
