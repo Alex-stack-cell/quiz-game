@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1>
-      Microphones can be used not only to pick up sound, but also to project sound similar to speaker.
+    <h1 v-html="this.question">
     </h1>
     
     <input type="radio" id="trueOption" name="options" value="true">
@@ -19,13 +18,22 @@
 export default {
   name: 'App',
 
+  data() {
+    return {
+      question: undefined,
+      incorrectAnswers: undefined,
+      correctAnswers: undefined
+    }
+  },
   created() {
     const api = 'https://opentdb.com/api.php?amount=1&category=18&difficulty=easy';
 
       this.axios
         .get(api)
         .then((response) => {
-          console.log(response.data.results[0])
+          this.question = response.data.results[0].question;
+          this.incorrectAnswers = response.data.results[0].incorrect_answers;
+          this.correctAnswers = response.data.results[0].correct_answer;
         });
     
   }
