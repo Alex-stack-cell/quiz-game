@@ -9,9 +9,10 @@
             type="radio"
             name="options"
             value="answer"
+            :id="index + 1"
             >
           
-          <label v-html="answer"></label><br>
+          <label v-html="answer" :for="index + 1"></label><br>
       </template>
       <button class="send" type="button">Send</button>
 </template>
