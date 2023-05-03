@@ -1,17 +1,24 @@
 <template>
   <div>
-    <h1 v-html="this.question">
-    </h1>
+    <template v-if="this.question">
+      <h1 v-html="this.question">
+      </h1>
     
-    <input type="radio" id="trueOption" name="options" value="true">
-    <label for="trueOption">True</label><br>
-    
-    <input type="radio" id="falseOption" name="options" value="false">
-    <label for="falseOption">False</label><br>
+      <template v-for="(answer, index) in this.answers" v-bind:key="index">
+          <input 
+            type="radio"
+            name="options"
+            value="answer"
+            >
+          
+          <label v-html="answer"></label><br>
+      </template>
+      <button class="send" type="button">Send</button>
+</template>
 
-    <button class="send" type="button">Send</button>
-
+  
   </div>
+
 </template>
 
 <script>
@@ -32,7 +39,9 @@ export default {
       const answers = JSON.parse(JSON.stringify(this.incorrectAnswers));
       const randomPosition = Math.round((Math.random() * answers.length));
       
-      return answers.splice(randomPosition, 0, this.correctAnswer);
+      answers.splice(randomPosition, 0, this.correctAnswer);
+
+      return answers;
     }
   },
   created() {
