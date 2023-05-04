@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ScoreBoard />
+    <ScoreBoard :userScore="this.userScore" :computerScore="this.computerScore"/>
     <template v-if="this.question">
       <h1 v-html="this.question">
       </h1>
@@ -65,7 +65,9 @@ export default {
       incorrectAnswers: undefined,
       correctAnswer: undefined,
       chosenAnswer: undefined,
-      answerSubmitted: false
+      answerSubmitted: false,
+      userScore: 0,
+      computerScore: 0,
     }
   },
   computed: {
@@ -86,14 +88,14 @@ export default {
         alert('Please pick one of the options');
 
         return;
-      } else {
-        this.answerSubmitted = true;
       }
 
+      this.answerSubmitted = true;
+
       if (this.chosenAnswer == this.correctAnswer) {
-        console.log('Correct ! :D');
+        this.userScore++;
       } else {
-        console.log('Wrong ! :( )')
+        this.computerScore++;
       }
     },
 
@@ -122,8 +124,8 @@ export default {
 
   },
   created() {
-    this.getNewQuestion();    
-  }
+    this.getNewQuestion();
+  },
 }
 </script>
 <style lang="scss">
