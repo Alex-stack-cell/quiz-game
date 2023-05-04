@@ -28,7 +28,7 @@
         </h4>
         <h4
           v-else
-          v-html="'&#9989; Congratulations, the answer is :  this.correctAnswer ' + this.correctAnswer + 'is correct.'"
+          v-html="'&#9989; Congratulations, the answer is : ' + this.correctAnswer + ' is correct.'"
           >
         </h4>
         <button 
@@ -87,10 +87,21 @@ export default {
       }
     },
 
-    getNewQuestion() {
-      const api = 'https://opentdb.com/api.php?amount=1&category=18&difficulty=easy';
+    getNewQuestion: function() {
+      this.init();
+      this.getQuestion();
+      },
+      
+      init: function() {
+        this.answerSubmitted = false;
+        this.chosenAnswer = undefined;
+        this.question = undefined;
+      },
 
-      this.axios
+      getQuestion: function() {
+        const api = 'https://opentdb.com/api.php?amount=1&category=18&difficulty=easy';
+
+        this.axios
         .get(api)
         .then((response) => {
           this.question = response.data.results[0].question;
@@ -98,6 +109,7 @@ export default {
           this.correctAnswer = response.data.results[0].correct_answer;
         });
       } 
+
   },
   created() {
     this.getNewQuestion();    
