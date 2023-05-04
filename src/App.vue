@@ -16,7 +16,12 @@
           
           <label v-html="answer" :for="index + 1"></label><br>
       </template>
-      <button @click="this.submitAnswer()" class="send" type="button">Send</button>
+      <button
+        @click="this.submitAnswer()"
+        class="send" 
+        type="button"
+        v-if="!this.answerSubmitted">Send
+      </button>
       <section 
         class="result"
         v-if="this.answerSubmitted"
