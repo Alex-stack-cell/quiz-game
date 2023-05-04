@@ -23,12 +23,20 @@
       >
         <h4 
           v-if="this.chosenAnswer!=this.correctAnswer"
-        > &#10060;You picked the wrong answer. The correct answer is {{ this.correctAnswer }}</h4>
+          v-html="'&#10060;You picked the wrong answer. The correct answer is ' + this.correctAnswer + ' is correct'"
+        >
+        </h4>
         <h4
           v-else
-        >
-          &#9989; Congratulations, the answer is : {{ this.correctAnswer }} is correct.
+          v-html="'&#9989; Congratulations, the answer is :  this.correctAnswer ' + this.correctAnswer + 'is correct.'"
+          >
         </h4>
+        <button 
+          @click="this.getNewQuestion()" 
+          class="send"
+          type="button"
+          >Next question
+        </button>
       </section>
     </template>
 
@@ -77,10 +85,10 @@ export default {
       } else {
         console.log('Wrong ! :( )')
       }
-    }
-  },
-  created() {
-    const api = 'https://opentdb.com/api.php?amount=1&category=18&difficulty=easy';
+    },
+
+    getNewQuestion() {
+      const api = 'https://opentdb.com/api.php?amount=1&category=18&difficulty=easy';
 
       this.axios
         .get(api)
@@ -89,7 +97,10 @@ export default {
           this.incorrectAnswers = response.data.results[0].incorrect_answers;
           this.correctAnswer = response.data.results[0].correct_answer;
         });
-    
+      } 
+  },
+  created() {
+    this.getNewQuestion();    
   }
 }
 </script>
