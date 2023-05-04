@@ -1,17 +1,28 @@
 <template>
-    <div>{{msg}}</div>
+    <section class="score"> 
+        Player
+        <span>0</span> x <span>0</span>
+        Computer
+    </section>
 </template>
 
 <script>
 export default {
     name: 'ScoreBoard',
-    data() {
-        return {
-            msg: 'Hello World'
-        } 
-    }
+  
 }
 </script>
 
-<style>
+<style lang="scss">
+section.score {
+    display: block;
+    border-bottom: 1px solid #000;
+    padding: 24px;
+    font-size: 10px;
+    span {
+       padding: 8px;
+       font-weight: bold;
+       border: 1px solid #000; 
+    }
+}
 </style>
